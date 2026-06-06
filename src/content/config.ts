@@ -3,7 +3,6 @@ import { defineCollection, z } from 'astro:content';
 const proyectos = defineCollection({
   type: 'content',
   schema: z.object({
-    slug:       z.string(),
     idioma:     z.enum(['es', 'en']),
     titulo:     z.string(),
     fecha:      z.date(),
@@ -19,7 +18,6 @@ const proyectos = defineCollection({
 const certificaciones = defineCollection({
   type: 'content',
   schema: z.object({
-    slug:                 z.string(),
     idioma:               z.enum(['es', 'en']),
     titulo:               z.string(),
     emisor:               z.string(),
@@ -35,7 +33,6 @@ const certificaciones = defineCollection({
 const articulos = defineCollection({
   type: 'content',
   schema: z.object({
-    slug:     z.string(),
     idioma:   z.enum(['es', 'en']),
     titulo:   z.string(),
     fecha:    z.date(),
@@ -48,7 +45,6 @@ const articulos = defineCollection({
 const prompts = defineCollection({
   type: 'content',
   schema: z.object({
-    slug:        z.string(),
     idioma:      z.enum(['es', 'en']),
     titulo:      z.string(),
     categoria:   z.string(),
@@ -62,7 +58,6 @@ const prompts = defineCollection({
 const repos = defineCollection({
   type: 'content',
   schema: z.object({
-    slug:        z.string(),
     idioma:      z.enum(['es', 'en']),
     titulo:      z.string(),
     descripcion: z.string(),

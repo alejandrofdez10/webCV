@@ -1,5 +1,4 @@
 ---
-slug: "analisis-datos-ej"
 idioma: "en"
 titulo: "Data Analysis — Example project"
 fecha: 2026-01-15

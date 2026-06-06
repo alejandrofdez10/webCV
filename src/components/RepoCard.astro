@@ -15,27 +15,27 @@ interface Props {
 const { slug, titulo, descripcion, repo, lenguaje, tags, destacado } = Astro.props;
 
 const langColors: Record<string, string> = {
-  Python:     'bg-blue-50 text-blue-700 border-blue-100',
-  TypeScript: 'bg-sky-50 text-sky-700 border-sky-100',
-  JavaScript: 'bg-yellow-50 text-yellow-700 border-yellow-100',
-  R:          'bg-indigo-50 text-indigo-700 border-indigo-100',
-  SQL:        'bg-orange-50 text-orange-700 border-orange-100',
+  Python:     'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  TypeScript: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+  JavaScript: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
+  R:          'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+  SQL:        'bg-orange-500/10 text-orange-400 border-orange-500/20',
 };
-const langClass = langColors[lenguaje] ?? 'bg-gray-50 text-gray-600 border-gray-100';
+const langClass = langColors[lenguaje] ?? 'bg-white/[0.05] text-white/50 border-white/[0.07]';
 ---
 
-<article class="relative flex flex-col gap-3 p-5 rounded-xl border border-gray-100 hover:border-emerald-200 hover:shadow-sm transition-all bg-white">
+<article class="glass relative flex flex-col gap-3 p-5 rounded-2xl">
   {destacado && (
-    <span class="absolute top-3 right-3 text-xs font-medium px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">
+    <span class="absolute top-3.5 right-3.5 text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
       ★
     </span>
   )}
 
   <a href={repo} target="_blank" rel="noopener noreferrer" class="block flex-1 group">
-    <h3 class="font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors leading-snug">
+    <h3 class="font-semibold text-white/90 group-hover:text-emerald-400 transition-colors duration-200 leading-snug pr-8">
       {titulo}
     </h3>
-    <p class="text-sm text-gray-500 mt-1.5 line-clamp-2 leading-relaxed">{descripcion}</p>
+    <p class="text-sm text-white/45 mt-1.5 line-clamp-2 leading-relaxed">{descripcion}</p>
   </a>
 
   <div class="flex flex-wrap gap-1.5">
@@ -43,15 +43,15 @@ const langClass = langColors[lenguaje] ?? 'bg-gray-50 text-gray-600 border-gray-
       {lenguaje}
     </span>
     {tags.map(tag => (
-      <span class="text-xs px-2 py-0.5 bg-gray-50 text-gray-500 rounded-md border border-gray-100">
+      <span class="text-xs px-2 py-0.5 rounded-md bg-white/[0.05] text-white/40 border border-white/[0.07]">
         #{tag}
       </span>
     ))}
   </div>
 
-  <div class="flex items-center justify-between pt-2 border-t border-gray-50">
+  <div class="flex items-center justify-between pt-2.5 border-t border-white/[0.06]">
     <a href={repo} target="_blank" rel="noopener noreferrer"
-       class="text-xs text-gray-400 hover:text-emerald-600 transition-colors">
+       class="text-xs text-white/35 hover:text-emerald-400 transition-colors duration-200">
       Ver repositorio →
     </a>
     <BoostButton slug={slug} seccion="repos" client:load />

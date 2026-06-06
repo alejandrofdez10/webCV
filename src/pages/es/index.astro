@@ -4,6 +4,7 @@ import ProjectCard from '../../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { useTranslations } from '../../i18n/ui';
+import { getSlug } from '../../lib/utils';
 
 const locale = 'es' as const;
 const t = useTranslations(locale);
@@ -15,34 +16,57 @@ const destacados = proyectos
   .slice(0, 3);
 
 const sections = [
-  { href: 'proyectos',       label: t('nav.projects'),       count: proyectos.filter(p => p.data.idioma === 'es').length },
-  { href: 'certificaciones', label: t('nav.certifications'), count: null },
-  { href: 'articulos',       label: t('nav.articles'),       count: null },
-  { href: 'prompts',         label: t('nav.prompts'),        count: null },
-  { href: 'repos',           label: t('nav.repos'),          count: null },
+  { href: 'proyectos',       label: t('nav.projects') },
+  { href: 'certificaciones', label: t('nav.certifications') },
+  { href: 'articulos',       label: t('nav.articles') },
+  { href: 'prompts',         label: t('nav.prompts') },
+  { href: 'repos',           label: t('nav.repos') },
 ];
 ---
 
 <Layout title="Inicio" locale={locale}>
   <!-- Hero -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 pb-14">
-    <div class="max-w-2xl">
-      <h1 class="text-5xl sm:text-6xl font-bold text-gray-900 leading-tight tracking-tight">
-        Alejandro<br />Fernández
+  <section class="relative max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-16 overflow-hidden">
+    <!-- Ambient blobs -->
+    <div class="blob w-[500px] h-[500px] bg-emerald-500 -top-40 -right-40" aria-hidden="true"></div>
+    <div class="blob blob-delay-1 w-[400px] h-[400px] bg-cyan-500 bottom-0 -left-32" aria-hidden="true"></div>
+    <div class="blob blob-delay-2 w-[300px] h-[300px] bg-violet-500 top-1/2 left-1/2" aria-hidden="true"></div>
+
+    <div class="relative max-w-2xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-xs font-medium mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Disponible para proyectos
+      </div>
+
+      <h1 class="text-5xl sm:text-6xl font-bold text-white leading-[1.1] tracking-tight">
+        Alejandro<br />
+        <span class="text-transparent bg-clip-text"
+              style="background-image: linear-gradient(135deg, #34d399 0%, #06b6d4 100%);">
+          Fernández
+        </span>
       </h1>
-      <p class="mt-4 text-xl text-emerald-600 font-medium">{t('hero.role')}</p>
-      <p class="mt-4 text-lg text-gray-500 leading-relaxed max-w-xl">{t('hero.bio')}</p>
+
+      <p class="mt-4 text-lg text-white/50 font-medium">{t('hero.role')}</p>
+      <p class="mt-3 text-base text-white/40 leading-relaxed max-w-lg">{t('hero.bio')}</p>
+
       <div class="mt-8 flex flex-wrap gap-3">
         <a
           href={getRelativeLocaleUrl(locale, 'proyectos')}
-          class="inline-flex items-center px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors shadow-sm"
+          class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm text-white transition-all duration-200"
+          style="background: linear-gradient(135deg, #059669, #0891b2); box-shadow: 0 4px 24px rgba(16,185,129,0.25);"
+          onmouseover="this.style.boxShadow='0 4px 32px rgba(16,185,129,0.4)'"
+          onmouseout="this.style.boxShadow='0 4px 24px rgba(16,185,129,0.25)'"
         >
           {t('hero.cta.projects')}
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
         </a>
         <a
           href="/webCV/pdfs/CV_AlejandroFernandez.pdf"
           download
-          class="inline-flex items-center px-6 py-2.5 border border-gray-200 text-gray-700 rounded-lg font-medium hover:border-emerald-400 hover:text-emerald-700 transition-colors"
+          class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm text-white/70 border border-white/10 hover:border-white/20 hover:text-white/90 transition-all duration-200"
+          style="background: rgba(255,255,255,0.04);"
         >
           {t('hero.cta.cv')}
         </a>
@@ -51,17 +75,16 @@ const sections = [
   </section>
 
   <!-- Secciones rápidas -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-14">
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
       {sections.map(s => (
         <a
           href={getRelativeLocaleUrl(locale, s.href)}
-          class="flex flex-col items-center gap-1.5 p-4 rounded-xl border border-gray-100 hover:border-emerald-200 hover:bg-emerald-50/40 transition-all text-center group"
+          class="glass group flex items-center justify-center py-4 px-3 rounded-xl text-center"
         >
-          <span class="text-sm font-medium text-gray-700 group-hover:text-emerald-700">{s.label}</span>
-          {s.count !== null && (
-            <span class="text-xs text-gray-400">{s.count}</span>
-          )}
+          <span class="text-sm font-medium text-white/50 group-hover:text-white/90 transition-colors duration-200">
+            {s.label}
+          </span>
         </a>
       ))}
     </div>
@@ -69,17 +92,18 @@ const sections = [
 
   <!-- Proyectos destacados -->
   {destacados.length > 0 && (
-    <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-24">
       <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xl font-semibold text-gray-900">{t('section.featured')}</h2>
-        <a href={getRelativeLocaleUrl(locale, 'proyectos')} class="text-sm text-emerald-600 hover:underline">
+        <h2 class="text-lg font-semibold text-white/80">{t('section.featured')}</h2>
+        <a href={getRelativeLocaleUrl(locale, 'proyectos')}
+           class="text-sm text-white/35 hover:text-emerald-400 transition-colors duration-200">
           {t('readmore')}
         </a>
       </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {destacados.map(p => (
           <ProjectCard
-            slug={p.data.slug}
+            slug={getSlug(p.id)}
             titulo={p.data.titulo}
             resumen={p.data.resumen}
             stack={p.data.stack}
@@ -87,7 +111,7 @@ const sections = [
             demo={p.data.demo}
             destacado={p.data.destacado}
             locale={locale}
-            href={getRelativeLocaleUrl(locale, `proyectos/${p.data.slug}`)}
+            href={getRelativeLocaleUrl(locale, `proyectos/${getSlug(p.id)}`)}
           />
         ))}
       </div>

@@ -11,14 +11,11 @@ const COOLDOWN_MS = 60_000;
 export default function BoostButton({ slug, seccion }: Props) {
   const [count, setCount] = useState<number | null>(null);
   const [voted, setVoted] = useState(false);
-
   const storageKey = `boost_${seccion}_${slug}`;
 
   useEffect(() => {
     const lastVote = localStorage.getItem(storageKey);
-    if (lastVote && Date.now() - Number(lastVote) < COOLDOWN_MS) {
-      setVoted(true);
-    }
+    if (lastVote && Date.now() - Number(lastVote) < COOLDOWN_MS) setVoted(true);
     fetchCount();
   }, []);
 
@@ -43,13 +40,40 @@ export default function BoostButton({ slug, seccion }: Props) {
     <button
       onClick={handleBoost}
       disabled={voted}
-      title={voted ? 'Ya votaste este elemento' : 'Dar boost a este elemento'}
-      className={[
-        'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all select-none',
-        voted
-          ? 'bg-emerald-50 border-emerald-200 text-emerald-700 cursor-default'
-          : 'border-gray-200 text-gray-500 hover:border-emerald-400 hover:text-emerald-600 hover:bg-emerald-50 cursor-pointer',
-      ].join(' ')}
+      title={voted ? 'Ya votaste' : 'Boost'}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '5px',
+        padding: '4px 10px',
+        borderRadius: '999px',
+        fontSize: '11px',
+        fontWeight: 500,
+        border: voted
+          ? '1px solid rgba(16,185,129,0.3)'
+          : '1px solid rgba(255,255,255,0.1)',
+        background: voted
+          ? 'rgba(16,185,129,0.1)'
+          : 'rgba(255,255,255,0.04)',
+        color: voted ? '#6ee7b7' : 'rgba(255,255,255,0.4)',
+        cursor: voted ? 'default' : 'pointer',
+        transition: 'all 0.2s ease',
+        userSelect: 'none',
+      }}
+      onMouseEnter={e => {
+        if (!voted) {
+          (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(16,185,129,0.35)';
+          (e.currentTarget as HTMLButtonElement).style.color = '#6ee7b7';
+          (e.currentTarget as HTMLButtonElement).style.background = 'rgba(16,185,129,0.08)';
+        }
+      }}
+      onMouseLeave={e => {
+        if (!voted) {
+          (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.1)';
+          (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.4)';
+          (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.04)';
+        }
+      }}
     >
       <span aria-hidden="true">▲</span>
       <span>{count === null ? '—' : count}</span>

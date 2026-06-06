@@ -20,28 +20,30 @@ const fechaStr = fecha.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
 });
 ---
 
-<article class="group flex flex-col gap-3 p-5 rounded-xl border border-gray-100 hover:border-emerald-200 hover:shadow-sm transition-all bg-white">
+<article class="glass group flex flex-col gap-3 p-5 rounded-2xl">
   {imagen && (
-    <img src={imagen} alt={titulo} class="w-full h-40 object-cover rounded-lg" loading="lazy" />
+    <img src={imagen} alt={titulo}
+         class="w-full h-40 object-cover rounded-xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+         loading="lazy" />
   )}
 
   <a href={href} class="block flex-1">
-    <h3 class="font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors leading-snug">
+    <h3 class="font-semibold text-white/90 group-hover:text-emerald-400 transition-colors duration-200 leading-snug">
       {titulo}
     </h3>
-    <p class="text-sm text-gray-500 mt-1.5 line-clamp-3 leading-relaxed">{resumen}</p>
+    <p class="text-sm text-white/45 mt-1.5 line-clamp-3 leading-relaxed">{resumen}</p>
   </a>
 
   <div class="flex flex-wrap gap-1.5">
     {tags.map(tag => (
-      <span class="text-xs px-2 py-0.5 bg-gray-50 text-gray-500 rounded-md border border-gray-100">
+      <span class="text-xs px-2 py-0.5 rounded-md bg-white/[0.05] text-white/40 border border-white/[0.07]">
         #{tag}
       </span>
     ))}
   </div>
 
-  <div class="flex items-center justify-between pt-2 border-t border-gray-50">
-    <span class="text-xs text-gray-400">{fechaStr}</span>
+  <div class="flex items-center justify-between pt-2.5 border-t border-white/[0.06]">
+    <span class="text-xs text-white/25">{fechaStr}</span>
     <BoostButton slug={slug} seccion="articulos" client:load />
   </div>
 </article>

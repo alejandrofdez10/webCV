@@ -1,5 +1,4 @@
 ---
-slug: "cert-ejemplo"
 idioma: "es"
 titulo: "Certificación ejemplo — reemplazar con la tuya"
 emisor: "Plataforma emisora"

@@ -27,11 +27,11 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="bg-white text-gray-900 font-sans antialiased">
+  <body class="bg-[#080810] text-white font-sans antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
     <Header locale={locale} />
     <main class="min-h-screen">
       <slot />
@@ -39,3 +39,50 @@ const {
     <Footer locale={locale} />
   </body>
 </html>
+
+<style is:global>
+  /* Glass morphism utility */
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .glass:hover {
+    background: rgba(255, 255, 255, 0.055);
+    border-color: rgba(16, 185, 129, 0.22);
+    box-shadow: 0 8px 40px rgba(16, 185, 129, 0.07), 0 0 0 1px rgba(16, 185, 129, 0.12) inset;
+  }
+
+  /* Ambient blob animations */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.12;
+    animation: blob-float 10s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .blob-delay-1 { animation-delay: -3.5s; }
+  .blob-delay-2 { animation-delay: -7s; }
+
+  @keyframes blob-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%       { transform: translate(40px, -30px) scale(1.08); }
+    66%       { transform: translate(-25px, 40px) scale(0.94); }
+  }
+
+  /* Subtle page fade-in */
+  main { animation: fadein 0.5s ease both; }
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Smooth scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #080810; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(16,185,129,0.4); }
+</style>

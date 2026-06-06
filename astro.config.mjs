@@ -9,6 +9,8 @@ export default defineConfig({
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
-    routing: 'prefix-always',
+    routing: {
+      prefixDefaultLocale: true,
+    },
   },
 });

@@ -1,5 +1,4 @@
 ---
-slug: "cert-ejemplo"
 idioma: "en"
 titulo: "Example certification — replace with yours"
 emisor: "Issuing platform"

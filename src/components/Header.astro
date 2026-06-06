@@ -10,8 +10,6 @@ const { locale } = Astro.props;
 const t = useTranslations(locale);
 const otherLocale = locale === 'es' ? 'en' : 'es';
 const currentPath = Astro.url.pathname;
-
-// Swap locale in current path for the language switcher
 const switchUrl = currentPath.replace(`/${locale}/`, `/${otherLocale}/`);
 
 const navLinks = [
@@ -23,22 +21,23 @@ const navLinks = [
 ];
 ---
 
-<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+<header class="sticky top-0 z-50 border-b border-white/[0.06]"
+        style="background: rgba(8,8,16,0.75); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
   <nav class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
     <a
       href={getRelativeLocaleUrl(locale, '')}
-      class="font-bold text-lg text-gray-900 hover:text-emerald-600 transition-colors tracking-tight"
+      class="font-bold text-lg text-white/90 hover:text-emerald-400 transition-colors duration-200 tracking-tight"
     >
       AF
     </a>
 
     <!-- Desktop nav -->
-    <ul class="hidden md:flex items-center gap-6">
+    <ul class="hidden md:flex items-center gap-7">
       {navLinks.map(link => (
         <li>
           <a
             href={link.href}
-            class="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+            class="text-sm text-white/50 hover:text-white/90 transition-colors duration-200"
           >
             {link.label}
           </a>
@@ -47,35 +46,34 @@ const navLinks = [
     </ul>
 
     <div class="flex items-center gap-3">
-      <!-- Language switcher -->
       <a
         href={switchUrl}
-        class="text-xs font-semibold px-3 py-1.5 rounded-full border border-gray-200 text-gray-500 hover:border-emerald-400 hover:text-emerald-600 transition-colors"
+        class="text-xs font-semibold px-3 py-1.5 rounded-full border border-white/10 text-white/50 hover:border-emerald-500/40 hover:text-emerald-400 transition-all duration-200"
       >
         {otherLocale.toUpperCase()}
       </a>
 
-      <!-- Mobile menu button -->
       <button
         id="menu-toggle"
         aria-label="Abrir menú"
-        class="md:hidden p-1.5 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+        class="md:hidden p-1.5 rounded-md text-white/40 hover:text-white/80 hover:bg-white/05 transition-colors"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
     </div>
   </nav>
 
   <!-- Mobile nav -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white">
+  <div id="mobile-menu" class="hidden md:hidden border-t border-white/[0.06]"
+       style="background: rgba(8,8,16,0.95);">
     <ul class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-1">
       {navLinks.map(link => (
         <li>
           <a
             href={link.href}
-            class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
+            class="block px-3 py-2.5 rounded-xl text-sm text-white/60 hover:text-emerald-400 hover:bg-white/[0.04] transition-all duration-200"
           >
             {link.label}
           </a>
