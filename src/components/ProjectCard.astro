@@ -1,0 +1,58 @@
+---
+import BoostButton from './BoostButton.tsx';
+
+interface Props {
+  slug: string;
+  titulo: string;
+  resumen: string;
+  stack: string[];
+  repo?: string;
+  demo?: string;
+  destacado?: boolean;
+  href: string;
+  locale: 'es' | 'en';
+}
+
+const { slug, titulo, resumen, stack, repo, demo, destacado, href } = Astro.props;
+---
+
+<article class="group relative flex flex-col gap-3 p-5 rounded-xl border border-gray-100 hover:border-emerald-200 hover:shadow-sm transition-all bg-white">
+  {destacado && (
+    <span class="absolute top-3 right-3 text-xs font-medium px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">
+      ★
+    </span>
+  )}
+
+  <a href={href} class="block flex-1">
+    <h3 class="font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors leading-snug">
+      {titulo}
+    </h3>
+    <p class="text-sm text-gray-500 mt-1.5 line-clamp-2 leading-relaxed">{resumen}</p>
+  </a>
+
+  <div class="flex flex-wrap gap-1.5">
+    {stack.map(tech => (
+      <span class="text-xs px-2 py-0.5 bg-gray-50 text-gray-600 rounded-md border border-gray-100">
+        {tech}
+      </span>
+    ))}
+  </div>
+
+  <div class="flex items-center justify-between pt-2 border-t border-gray-50">
+    <div class="flex items-center gap-3">
+      {repo && (
+        <a href={repo} target="_blank" rel="noopener noreferrer"
+           class="text-xs text-gray-400 hover:text-emerald-600 transition-colors">
+          GitHub →
+        </a>
+      )}
+      {demo && (
+        <a href={demo} target="_blank" rel="noopener noreferrer"
+           class="text-xs text-gray-400 hover:text-emerald-600 transition-colors">
+          Demo →
+        </a>
+      )}
+    </div>
+    <BoostButton slug={slug} seccion="proyectos" client:load />
+  </div>
+</article>

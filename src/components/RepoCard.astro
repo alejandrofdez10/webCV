@@ -1,0 +1,59 @@
+---
+import BoostButton from './BoostButton.tsx';
+
+interface Props {
+  slug: string;
+  titulo: string;
+  descripcion: string;
+  repo: string;
+  lenguaje: string;
+  tags: string[];
+  destacado?: boolean;
+  locale: 'es' | 'en';
+}
+
+const { slug, titulo, descripcion, repo, lenguaje, tags, destacado } = Astro.props;
+
+const langColors: Record<string, string> = {
+  Python:     'bg-blue-50 text-blue-700 border-blue-100',
+  TypeScript: 'bg-sky-50 text-sky-700 border-sky-100',
+  JavaScript: 'bg-yellow-50 text-yellow-700 border-yellow-100',
+  R:          'bg-indigo-50 text-indigo-700 border-indigo-100',
+  SQL:        'bg-orange-50 text-orange-700 border-orange-100',
+};
+const langClass = langColors[lenguaje] ?? 'bg-gray-50 text-gray-600 border-gray-100';
+---
+
+<article class="relative flex flex-col gap-3 p-5 rounded-xl border border-gray-100 hover:border-emerald-200 hover:shadow-sm transition-all bg-white">
+  {destacado && (
+    <span class="absolute top-3 right-3 text-xs font-medium px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">
+      ★
+    </span>
+  )}
+
+  <a href={repo} target="_blank" rel="noopener noreferrer" class="block flex-1 group">
+    <h3 class="font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors leading-snug">
+      {titulo}
+    </h3>
+    <p class="text-sm text-gray-500 mt-1.5 line-clamp-2 leading-relaxed">{descripcion}</p>
+  </a>
+
+  <div class="flex flex-wrap gap-1.5">
+    <span class={`text-xs px-2 py-0.5 rounded-md border font-medium ${langClass}`}>
+      {lenguaje}
+    </span>
+    {tags.map(tag => (
+      <span class="text-xs px-2 py-0.5 bg-gray-50 text-gray-500 rounded-md border border-gray-100">
+        #{tag}
+      </span>
+    ))}
+  </div>
+
+  <div class="flex items-center justify-between pt-2 border-t border-gray-50">
+    <a href={repo} target="_blank" rel="noopener noreferrer"
+       class="text-xs text-gray-400 hover:text-emerald-600 transition-colors">
+      Ver repositorio →
+    </a>
+    <BoostButton slug={slug} seccion="repos" client:load />
+  </div>
+</article>

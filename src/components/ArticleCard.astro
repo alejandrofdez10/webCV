@@ -1,0 +1,47 @@
+---
+import BoostButton from './BoostButton.tsx';
+
+interface Props {
+  slug: string;
+  titulo: string;
+  resumen: string;
+  fecha: Date;
+  tags: string[];
+  href: string;
+  imagen?: string;
+  locale: 'es' | 'en';
+}
+
+const { slug, titulo, resumen, fecha, tags, href, imagen, locale } = Astro.props;
+const fechaStr = fecha.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<article class="group flex flex-col gap-3 p-5 rounded-xl border border-gray-100 hover:border-emerald-200 hover:shadow-sm transition-all bg-white">
+  {imagen && (
+    <img src={imagen} alt={titulo} class="w-full h-40 object-cover rounded-lg" loading="lazy" />
+  )}
+
+  <a href={href} class="block flex-1">
+    <h3 class="font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors leading-snug">
+      {titulo}
+    </h3>
+    <p class="text-sm text-gray-500 mt-1.5 line-clamp-3 leading-relaxed">{resumen}</p>
+  </a>
+
+  <div class="flex flex-wrap gap-1.5">
+    {tags.map(tag => (
+      <span class="text-xs px-2 py-0.5 bg-gray-50 text-gray-500 rounded-md border border-gray-100">
+        #{tag}
+      </span>
+    ))}
+  </div>
+
+  <div class="flex items-center justify-between pt-2 border-t border-gray-50">
+    <span class="text-xs text-gray-400">{fechaStr}</span>
+    <BoostButton slug={slug} seccion="articulos" client:load />
+  </div>
+</article>

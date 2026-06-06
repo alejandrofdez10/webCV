@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../../i18n/ui';
+
+const locale = 'en' as const;
+const t = useTranslations(locale);
+
+const proyectos = await getCollection('proyectos');
+const destacados = proyectos
+  .filter(p => p.data.idioma === 'en' && p.data.destacado)
+  .sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime())
+  .slice(0, 3);
+
+const sections = [
+  { href: 'proyectos',       label: t('nav.projects') },
+  { href: 'certificaciones', label: t('nav.certifications') },
+  { href: 'articulos',       label: t('nav.articles') },
+  { href: 'prompts',         label: t('nav.prompts') },
+  { href: 'repos',           label: t('nav.repos') },
+];
+---
+
+<Layout title="Home" locale={locale}>
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 pb-14">
+    <div class="max-w-2xl">
+      <h1 class="text-5xl sm:text-6xl font-bold text-gray-900 leading-tight tracking-tight">
+        Alejandro<br />Fernández
+      </h1>
+      <p class="mt-4 text-xl text-emerald-600 font-medium">{t('hero.role')}</p>
+      <p class="mt-4 text-lg text-gray-500 leading-relaxed max-w-xl">{t('hero.bio')}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href={getRelativeLocaleUrl(locale, 'proyectos')}
+          class="inline-flex items-center px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors shadow-sm"
+        >
+          {t('hero.cta.projects')}
+        </a>
+        <a
+          href="/webCV/pdfs/CV_EN_AlejandroFernandez.pdf"
+          download
+          class="inline-flex items-center px-6 py-2.5 border border-gray-200 text-gray-700 rounded-lg font-medium hover:border-emerald-400 hover:text-emerald-700 transition-colors"
+        >
+          {t('hero.cta.cv')}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick sections -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-14">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+      {sections.map(s => (
+        <a
+          href={getRelativeLocaleUrl(locale, s.href)}
+          class="flex flex-col items-center gap-1.5 p-4 rounded-xl border border-gray-100 hover:border-emerald-200 hover:bg-emerald-50/40 transition-all text-center group"
+        >
+          <span class="text-sm font-medium text-gray-700 group-hover:text-emerald-700">{s.label}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Featured projects -->
+  {destacados.length > 0 && (
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-semibold text-gray-900">{t('section.featured')}</h2>
+        <a href={getRelativeLocaleUrl(locale, 'proyectos')} class="text-sm text-emerald-600 hover:underline">
+          {t('readmore')}
+        </a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {destacados.map(p => (
+          <ProjectCard
+            slug={p.data.slug}
+            titulo={p.data.titulo}
+            resumen={p.data.resumen}
+            stack={p.data.stack}
+            repo={p.data.repo}
+            demo={p.data.demo}
+            destacado={p.data.destacado}
+            locale={locale}
+            href={getRelativeLocaleUrl(locale, `proyectos/${p.data.slug}`)}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+</Layout>

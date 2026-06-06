@@ -1,0 +1,61 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import BoostButton from '../../../components/BoostButton.tsx';
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../../../i18n/ui';
+
+export async function getStaticPaths() {
+  const all = await getCollection('proyectos');
+  return all
+    .filter(p => p.data.idioma === 'es')
+    .map(p => ({ params: { slug: p.data.slug }, props: { entry: p } }));
+}
+
+const locale = 'es' as const;
+const t = useTranslations(locale);
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={entry.data.titulo} locale={locale} description={entry.data.resumen}>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+    <a href={getRelativeLocaleUrl(locale, 'proyectos')} class="text-sm text-gray-400 hover:text-emerald-600 transition-colors mb-8 inline-block">
+      {t('back')}
+    </a>
+
+    <div class="flex items-start justify-between gap-4 mb-4">
+      <h1 class="text-3xl font-bold text-gray-900 leading-tight">{entry.data.titulo}</h1>
+      <BoostButton slug={entry.data.slug} seccion="proyectos" client:load />
+    </div>
+
+    <p class="text-gray-500 mb-5">{entry.data.resumen}</p>
+
+    <div class="flex flex-wrap gap-2 mb-5">
+      {entry.data.stack.map((tech: string) => (
+        <span class="text-sm px-2.5 py-0.5 bg-emerald-50 text-emerald-700 rounded-md border border-emerald-100">
+          {tech}
+        </span>
+      ))}
+    </div>
+
+    <div class="flex flex-wrap gap-3 mb-10">
+      {entry.data.repo && (
+        <a href={entry.data.repo} target="_blank" rel="noopener noreferrer"
+           class="text-sm px-4 py-1.5 rounded-lg border border-gray-200 text-gray-700 hover:border-emerald-400 hover:text-emerald-700 transition-colors">
+          {t('viewrepo')}
+        </a>
+      )}
+      {entry.data.demo && (
+        <a href={entry.data.demo} target="_blank" rel="noopener noreferrer"
+           class="text-sm px-4 py-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-colors">
+          {t('viewdemo')}
+        </a>
+      )}
+    </div>
+
+    <div class="prose prose-gray max-w-none">
+      <Content />
+    </div>
+  </article>
+</Layout>

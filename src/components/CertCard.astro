@@ -1,0 +1,53 @@
+---
+import BoostButton from './BoostButton.tsx';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  slug: string;
+  titulo: string;
+  emisor: string;
+  fecha: Date;
+  categoria: string;
+  enlace_verificacion?: string;
+  pdf?: string;
+  locale: 'es' | 'en';
+}
+
+const { slug, titulo, emisor, fecha, categoria, enlace_verificacion, pdf, locale } = Astro.props;
+const t = useTranslations(locale);
+const fechaStr = fecha.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+});
+---
+
+<article class="flex flex-col gap-3 p-5 rounded-xl border border-gray-100 hover:border-emerald-200 hover:shadow-sm transition-all bg-white">
+  <div class="flex items-start justify-between gap-3">
+    <div class="flex-1 min-w-0">
+      <h3 class="font-semibold text-gray-900 leading-snug">{titulo}</h3>
+      <p class="text-sm text-gray-500 mt-0.5">{emisor}</p>
+    </div>
+    <span class="shrink-0 text-xs font-medium px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">
+      {categoria}
+    </span>
+  </div>
+
+  <p class="text-xs text-gray-400">{fechaStr}</p>
+
+  <div class="flex items-center justify-between pt-2 border-t border-gray-50">
+    <div class="flex gap-3">
+      {enlace_verificacion && (
+        <a href={enlace_verificacion} target="_blank" rel="noopener noreferrer"
+           class="text-xs text-gray-400 hover:text-emerald-600 transition-colors">
+          {t('verifycert')} →
+        </a>
+      )}
+      {pdf && (
+        <a href={pdf} download class="text-xs text-gray-400 hover:text-emerald-600 transition-colors">
+          PDF ↓
+        </a>
+      )}
+    </div>
+    <BoostButton slug={slug} seccion="certificaciones" client:load />
+  </div>
+</article>

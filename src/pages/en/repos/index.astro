@@ -1,0 +1,43 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import RepoCard from '../../../components/RepoCard.astro';
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../../../i18n/ui';
+
+const locale = 'en' as const;
+const t = useTranslations(locale);
+
+const all = await getCollection('repos');
+const repos = all
+  .filter(r => r.data.idioma === 'en')
+  .sort((a, b) => Number(b.data.destacado) - Number(a.data.destacado) || a.data.titulo.localeCompare(b.data.titulo));
+---
+
+<Layout title={t('section.repos')} locale={locale}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+    <a href={getRelativeLocaleUrl(locale, '')} class="text-sm text-gray-400 hover:text-emerald-600 transition-colors mb-6 inline-block">
+      {t('back')}
+    </a>
+    <h1 class="text-3xl font-bold text-gray-900 mb-10">{t('section.repos')}</h1>
+
+    {repos.length === 0 ? (
+      <p class="text-gray-400">{t('empty')}</p>
+    ) : (
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {repos.map(r => (
+          <RepoCard
+            slug={r.data.slug}
+            titulo={r.data.titulo}
+            descripcion={r.data.descripcion}
+            repo={r.data.repo}
+            lenguaje={r.data.lenguaje}
+            tags={r.data.tags}
+            destacado={r.data.destacado}
+            locale={locale}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</Layout>
