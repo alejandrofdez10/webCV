@@ -21,23 +21,23 @@ const navLinks = [
 ];
 ---
 
-<header class="sticky top-0 z-50 border-b border-white/[0.06]"
-        style="background: rgba(8,8,16,0.75); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
-  <nav class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+<header class="sticky top-0 z-50 border-b border-slate-200/80 dark:border-white/[0.06] transition-colors duration-300"
+        style="background: rgba(248,250,252,0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);"
+        id="site-header">
+  <nav class="max-w-6xl mx-auto px-6 sm:px-10 flex items-center justify-between h-16">
     <a
       href={getRelativeLocaleUrl(locale, '')}
-      class="font-bold text-lg text-white/90 hover:text-emerald-400 transition-colors duration-200 tracking-tight"
+      class="font-bold text-lg text-slate-900 dark:text-white/90 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200 tracking-tight"
     >
       AF
     </a>
 
-    <!-- Desktop nav -->
     <ul class="hidden md:flex items-center gap-7">
       {navLinks.map(link => (
         <li>
           <a
             href={link.href}
-            class="text-sm text-white/50 hover:text-white/90 transition-colors duration-200"
+            class="text-sm text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white/90 transition-colors duration-200"
           >
             {link.label}
           </a>
@@ -45,18 +45,46 @@ const navLinks = [
       ))}
     </ul>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2">
+      <!-- Theme toggle -->
+      <button
+        id="theme-toggle"
+        aria-label="Cambiar tema"
+        class="p-2 rounded-lg text-slate-400 dark:text-white/40 hover:text-slate-700 dark:hover:text-white/80
+               hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all duration-200"
+      >
+        <!-- Sun (visible in dark mode) -->
+        <svg id="icon-sun" class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+        </svg>
+        <!-- Moon (visible in light mode) -->
+        <svg id="icon-moon" class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+      </button>
+
+      <!-- Language -->
       <a
         href={switchUrl}
-        class="text-xs font-semibold px-3 py-1.5 rounded-full border border-white/10 text-white/50 hover:border-emerald-500/40 hover:text-emerald-400 transition-all duration-200"
+        class="text-xs font-semibold px-3 py-1.5 rounded-full border
+               border-slate-200 dark:border-white/10
+               text-slate-500 dark:text-white/50
+               hover:border-emerald-400 dark:hover:border-emerald-500/40
+               hover:text-emerald-600 dark:hover:text-emerald-400
+               transition-all duration-200"
       >
         {otherLocale.toUpperCase()}
       </a>
 
+      <!-- Mobile menu -->
       <button
         id="menu-toggle"
         aria-label="Abrir menú"
-        class="md:hidden p-1.5 rounded-md text-white/40 hover:text-white/80 hover:bg-white/05 transition-colors"
+        class="md:hidden p-1.5 rounded-md text-slate-400 dark:text-white/40
+               hover:text-slate-700 dark:hover:text-white/80
+               hover:bg-slate-100 dark:hover:bg-white/[0.05] transition-colors"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
@@ -66,14 +94,18 @@ const navLinks = [
   </nav>
 
   <!-- Mobile nav -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-white/[0.06]"
-       style="background: rgba(8,8,16,0.95);">
+  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-100 dark:border-white/[0.06]
+                               bg-white/95 dark:bg-[#080810]/95 transition-colors duration-300">
     <ul class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-1">
       {navLinks.map(link => (
         <li>
           <a
             href={link.href}
-            class="block px-3 py-2.5 rounded-xl text-sm text-white/60 hover:text-emerald-400 hover:bg-white/[0.04] transition-all duration-200"
+            class="block px-3 py-2.5 rounded-xl text-sm
+                   text-slate-600 dark:text-white/60
+                   hover:text-emerald-600 dark:hover:text-emerald-400
+                   hover:bg-emerald-50 dark:hover:bg-white/[0.04]
+                   transition-all duration-200"
           >
             {link.label}
           </a>
@@ -84,7 +116,27 @@ const navLinks = [
 </header>
 
 <script>
-  const toggle = document.getElementById('menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  toggle?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+  // Mobile menu
+  document.getElementById('menu-toggle')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+  });
+
+  // Theme toggle
+  const toggle = document.getElementById('theme-toggle');
+  const header = document.getElementById('site-header') as HTMLElement;
+
+  function applyHeaderBg(isDark: boolean) {
+    header.style.background = isDark
+      ? 'rgba(8,8,16,0.8)'
+      : 'rgba(248,250,252,0.85)';
+  }
+
+  // Init header bg
+  applyHeaderBg(document.documentElement.classList.contains('dark'));
+
+  toggle?.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    applyHeaderBg(isDark);
+  });
 </script>

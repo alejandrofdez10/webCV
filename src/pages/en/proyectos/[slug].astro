@@ -30,7 +30,7 @@ const { Content } = await entry.render();
       <BoostButton slug={getSlug(entry.id)} seccion="proyectos" client:load />
     </div>
 
-    <p class="text-gray-500 mb-5">{entry.data.resumen}</p>
+    <p class="text-slate-500 dark:text-white/50 mb-5">{entry.data.resumen}</p>
 
     <div class="flex flex-wrap gap-2 mb-5">
       {entry.data.stack.map((tech: string) => (

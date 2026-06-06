@@ -36,8 +36,8 @@ const sections = [
     </div>
 
     <!-- Fade bottom -->
-    <div class="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
-         style="background: linear-gradient(to bottom, transparent, #080810);" aria-hidden="true"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-40 pointer-events-none" aria-hidden="true"
+         style="background: linear-gradient(to bottom, transparent, var(--hero-fade, #080810));"></div>
 
     <div class="relative max-w-6xl mx-auto px-6 sm:px-10 pt-24 pb-20">
       <div class="max-w-2xl">
@@ -46,7 +46,7 @@ const sections = [
           Disponible para proyectos
         </div>
 
-        <h1 class="text-5xl sm:text-7xl font-bold text-white leading-[1.05] tracking-tight">
+        <h1 class="text-5xl sm:text-7xl font-bold text-slate-900 dark:text-white leading-[1.05] tracking-tight">
           Alejandro<br />
           <span class="text-transparent bg-clip-text"
                 style="background-image: linear-gradient(135deg, #34d399 0%, #06b6d4 100%);">
@@ -54,8 +54,8 @@ const sections = [
           </span>
         </h1>
 
-        <p class="mt-5 text-lg text-white/50 font-medium">{t('hero.role')}</p>
-        <p class="mt-3 text-base text-white/35 leading-relaxed max-w-lg">{t('hero.bio')}</p>
+        <p class="mt-5 text-lg text-slate-500 dark:text-white/50 font-medium">{t('hero.role')}</p>
+        <p class="mt-3 text-base text-slate-400 dark:text-white/35 leading-relaxed max-w-lg">{t('hero.bio')}</p>
 
         <div class="mt-10 flex flex-wrap gap-3">
           <a
@@ -71,7 +71,7 @@ const sections = [
           <a
             href="/webCV/pdfs/CV_AlejandroFernandez.pdf"
             download
-            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-white/60 border border-white/10 hover:border-white/20 hover:text-white/90 transition-all duration-200"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-slate-600 dark:text-white/60 border border-slate-200 dark:border-white/10 hover:border-emerald-300 dark:hover:border-white/20 hover:text-slate-900 dark:hover:text-white/90 transition-all duration-200"
             style="background: rgba(255,255,255,0.04);"
           >
             {t('hero.cta.cv')}
@@ -89,7 +89,7 @@ const sections = [
           href={getRelativeLocaleUrl(locale, s.href)}
           class="glass group flex items-center justify-center py-4 px-3 rounded-xl text-center"
         >
-          <span class="text-sm font-medium text-white/50 group-hover:text-white/90 transition-colors duration-200">
+          <span class="text-sm font-medium text-slate-500 dark:text-white/50 group-hover:text-slate-900 dark:group-hover:text-white/90 transition-colors duration-200">
             {s.label}
           </span>
         </a>
@@ -102,9 +102,9 @@ const sections = [
     <section class="w-full px-6 sm:px-10 pb-28">
       <div class="max-w-6xl mx-auto">
         <div class="flex items-center justify-between mb-6">
-          <h2 class="text-lg font-semibold text-white/80">{t('section.featured')}</h2>
+          <h2 class="text-lg font-semibold text-slate-800 dark:text-white/80">{t('section.featured')}</h2>
           <a href={getRelativeLocaleUrl(locale, 'proyectos')}
-             class="text-sm text-white/30 hover:text-emerald-400 transition-colors duration-200">
+             class="text-sm text-slate-400 dark:text-white/30 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200">
             {t('readmore')}
           </a>
         </div>

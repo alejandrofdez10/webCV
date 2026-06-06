@@ -17,13 +17,13 @@ const articulos = all
 
 <Layout title={t('section.articles')} locale={locale}>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-    <a href={getRelativeLocaleUrl(locale, '')} class="text-sm text-white/30 hover:text-emerald-400 transition-colors mb-6 inline-block">
+    <a href={getRelativeLocaleUrl(locale, '')} class="text-sm text-slate-400 dark:text-white/30 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors mb-6 inline-block">
       {t('back')}
     </a>
-    <h1 class="text-3xl font-bold text-white/90 mb-10">{t('section.articles')}</h1>
+    <h1 class="text-3xl font-bold text-slate-900 dark:text-white/90 mb-10">{t('section.articles')}</h1>
 
     {articulos.length === 0 ? (
-      <p class="text-white/30">{t('empty')}</p>
+      <p class="text-slate-400 dark:text-white/30">{t('empty')}</p>
     ) : (
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {articulos.map(a => (

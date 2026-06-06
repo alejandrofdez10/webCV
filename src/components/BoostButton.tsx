@@ -36,45 +36,12 @@ export default function BoostButton({ slug, seccion }: Props) {
     await supabase.from('boosts').insert({ item_slug: slug, seccion });
   }
 
+  const base = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all select-none';
+  const active = `${base} bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/25 text-emerald-700 dark:text-emerald-400 cursor-default`;
+  const idle   = `${base} bg-transparent border-slate-200 dark:border-white/10 text-slate-400 dark:text-white/40 cursor-pointer hover:border-emerald-400 dark:hover:border-emerald-500/35 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-500/[0.08]`;
+
   return (
-    <button
-      onClick={handleBoost}
-      disabled={voted}
-      title={voted ? 'Ya votaste' : 'Boost'}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '5px',
-        padding: '4px 10px',
-        borderRadius: '999px',
-        fontSize: '11px',
-        fontWeight: 500,
-        border: voted
-          ? '1px solid rgba(16,185,129,0.3)'
-          : '1px solid rgba(255,255,255,0.1)',
-        background: voted
-          ? 'rgba(16,185,129,0.1)'
-          : 'rgba(255,255,255,0.04)',
-        color: voted ? '#6ee7b7' : 'rgba(255,255,255,0.4)',
-        cursor: voted ? 'default' : 'pointer',
-        transition: 'all 0.2s ease',
-        userSelect: 'none',
-      }}
-      onMouseEnter={e => {
-        if (!voted) {
-          (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(16,185,129,0.35)';
-          (e.currentTarget as HTMLButtonElement).style.color = '#6ee7b7';
-          (e.currentTarget as HTMLButtonElement).style.background = 'rgba(16,185,129,0.08)';
-        }
-      }}
-      onMouseLeave={e => {
-        if (!voted) {
-          (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.1)';
-          (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.4)';
-          (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.04)';
-        }
-      }}
-    >
+    <button onClick={handleBoost} disabled={voted} title={voted ? 'Ya votaste' : 'Boost'} className={voted ? active : idle}>
       <span aria-hidden="true">▲</span>
       <span>{count === null ? '—' : count}</span>
     </button>
