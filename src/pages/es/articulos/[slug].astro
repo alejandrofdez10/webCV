@@ -1,0 +1,63 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import BoostButton from '../../../components/BoostButton.tsx';
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../../../i18n/ui';
+import { getSlug } from '../../../lib/utils';
+
+export async function getStaticPaths() {
+  const all = await getCollection('articulos');
+  return all
+    .filter(a => a.data.idioma === 'es')
+    .map(a => ({ params: { slug: getSlug(a.id) }, props: { entry: a } }));
+}
+
+const locale = 'es' as const;
+const t = useTranslations(locale);
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const fechaStr = entry.data.fecha.toLocaleDateString('es-ES', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+
+<Layout title={entry.data.titulo} locale={locale} description={entry.data.resumen}>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+    <a href={getRelativeLocaleUrl(locale, 'articulos')}
+       class="text-sm text-slate-400 dark:text-white/35 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors mb-8 inline-block">
+      {t('back')}
+    </a>
+
+    <div class="flex items-start justify-between gap-4 mb-3">
+      <h1 class="text-3xl font-bold text-slate-900 dark:text-white/90 leading-tight">{entry.data.titulo}</h1>
+      <BoostButton slug={getSlug(entry.id)} seccion="articulos" client:load />
+    </div>
+
+    <p class="text-sm text-slate-400 dark:text-white/30 mb-3">{fechaStr}</p>
+
+    <p class="text-slate-500 dark:text-white/50 mb-6">{entry.data.resumen}</p>
+
+    <div class="flex flex-wrap gap-1.5 mb-10">
+      {entry.data.tags.map((tag: string) => (
+        <span class="text-xs px-2 py-0.5 rounded-md border
+                     bg-slate-100 dark:bg-white/[0.05]
+                     text-slate-500 dark:text-white/40
+                     border-slate-200 dark:border-white/[0.07]">
+          #{tag}
+        </span>
+      ))}
+    </div>
+
+    <div class="prose prose-slate dark:prose-invert max-w-none
+                prose-headings:font-semibold
+                prose-a:text-emerald-600 dark:prose-a:text-emerald-400
+                prose-code:text-emerald-700 dark:prose-code:text-emerald-300
+                prose-code:bg-slate-100 dark:prose-code:bg-white/[0.06]
+                prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                prose-pre:bg-slate-900 dark:prose-pre:bg-white/[0.04]
+                prose-pre:border prose-pre:border-slate-200 dark:prose-pre:border-white/[0.07]">
+      <Content />
+    </div>
+  </article>
+</Layout>

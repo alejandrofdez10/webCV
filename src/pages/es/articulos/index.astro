@@ -35,7 +35,7 @@ const articulos = all
             tags={a.data.tags}
             imagen={a.data.imagen}
             locale={locale}
-            href={getRelativeLocaleUrl(locale, `articulos/${a.data.slug}`)}
+            href={getRelativeLocaleUrl(locale, `articulos/${getSlug(a.id)}`)}
           />
         ))}
       </div>
