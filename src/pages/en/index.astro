@@ -28,9 +28,9 @@ const sections = [
 
   <section class="relative w-full overflow-hidden">
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-      <div class="blob w-[700px] h-[700px] bg-emerald-500 -top-60 right-0"></div>
+      <div class="blob w-[700px] h-[700px] bg-sky-500 -top-60 right-0"></div>
       <div class="blob blob-delay-1 w-[500px] h-[500px] bg-cyan-400 top-1/2 left-1/4"></div>
-      <div class="blob blob-delay-2 w-[400px] h-[400px] bg-violet-500 bottom-0 -left-20"></div>
+      <div class="blob blob-delay-2 w-[400px] h-[400px] bg-blue-600 bottom-0 -left-20"></div>
     </div>
 
     <!-- Fade bottom -->
@@ -39,15 +39,15 @@ const sections = [
 
     <div class="relative max-w-6xl mx-auto px-6 sm:px-10 pt-24 pb-20">
       <div class="max-w-2xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-xs font-medium mb-6">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-500/20 bg-sky-500/5 text-sky-400 text-xs font-medium mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
           Open to projects
         </div>
 
         <h1 class="text-5xl sm:text-7xl font-bold text-slate-900 dark:text-white leading-[1.05] tracking-tight">
           Alejandro<br />
           <span class="text-transparent bg-clip-text"
-                style="background-image: linear-gradient(135deg, #34d399 0%, #06b6d4 100%);">
+                style="background-image: linear-gradient(135deg, #38bdf8 0%, #06b6d4 100%);">
             Fernández
           </span>
         </h1>
@@ -59,7 +59,7 @@ const sections = [
           <a
             href={getRelativeLocaleUrl(locale, 'proyectos')}
             class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-white"
-            style="background: linear-gradient(135deg, #059669, #0891b2); box-shadow: 0 4px 28px rgba(16,185,129,0.3);"
+            style="background: linear-gradient(135deg, #0284c7, #0891b2); box-shadow: 0 4px 28px rgba(2,132,199,0.3);"
           >
             {t('hero.cta.projects')}
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,7 +69,7 @@ const sections = [
           <a
             href="/webCV/pdfs/AlejandroFdezR_CV.pdf"
             download
-            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-slate-600 dark:text-white/60 border border-slate-200 dark:border-white/10 hover:border-emerald-300 dark:hover:border-white/20 hover:text-slate-900 dark:hover:text-white/90 transition-all duration-200"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-slate-600 dark:text-white/60 border border-slate-200 dark:border-white/10 hover:border-sky-300 dark:hover:border-white/20 hover:text-slate-900 dark:hover:text-white/90 transition-all duration-200"
             style="background: rgba(255,255,255,0.04);"
           >
             {t('hero.cta.cv')}
@@ -100,7 +100,7 @@ const sections = [
         <div class="flex items-center justify-between mb-6">
           <h2 class="text-lg font-semibold text-slate-800 dark:text-white/80">{t('section.featured')}</h2>
           <a href={getRelativeLocaleUrl(locale, 'proyectos')}
-             class="text-sm text-slate-400 dark:text-white/30 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200">
+             class="text-sm text-slate-400 dark:text-white/30 hover:text-sky-600 dark:hover:text-sky-400 transition-colors duration-200">
             {t('readmore')}
           </a>
         </div>

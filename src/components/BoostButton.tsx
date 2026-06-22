@@ -37,13 +37,13 @@ export default function BoostButton({ slug, seccion }: Props) {
   }
 
   const base = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all select-none';
-  const active = `${base} bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/25 text-emerald-700 dark:text-emerald-400 cursor-default`;
-  const idle   = `${base} bg-transparent border-slate-200 dark:border-white/10 text-slate-400 dark:text-white/40 cursor-pointer hover:border-emerald-400 dark:hover:border-emerald-500/35 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-500/[0.08]`;
+  const active = `${base} bg-sky-50 dark:bg-sky-500/10 border-sky-200 dark:border-sky-500/25 text-sky-700 dark:text-sky-400 cursor-default`;
+  const idle   = `${base} bg-transparent border-slate-200 dark:border-white/10 text-slate-400 dark:text-white/40 cursor-pointer hover:border-sky-400 dark:hover:border-sky-500/35 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-500/[0.08]`;
 
   return (
     <button onClick={handleBoost} disabled={voted} title={voted ? 'Ya votaste' : 'Boost'} className={voted ? active : idle}>
       <span aria-hidden="true">▲</span>
-      <span>{count === null ? '—' : count}</span>
+      <span className="font-mono">{count === null ? '—' : count}</span>
     </button>
   );
 }

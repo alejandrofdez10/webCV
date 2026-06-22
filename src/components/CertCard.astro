@@ -27,10 +27,10 @@ const fechaStr = fecha.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
       <h3 class="font-semibold text-slate-900 dark:text-white/90 leading-snug">{titulo}</h3>
       <p class="text-sm text-slate-500 dark:text-white/45 mt-0.5">{emisor}</p>
     </div>
-    <span class="shrink-0 text-xs font-medium px-2 py-0.5 rounded-full
-                 bg-emerald-50 dark:bg-emerald-500/10
-                 text-emerald-700 dark:text-emerald-400
-                 border border-emerald-200 dark:border-emerald-500/20">
+    <span class="shrink-0 text-xs font-mono font-medium px-2 py-0.5 rounded-full
+                 bg-sky-50 dark:bg-sky-500/10
+                 text-sky-700 dark:text-sky-400
+                 border border-sky-200 dark:border-sky-500/20">
       {categoria}
     </span>
   </div>
@@ -41,13 +41,13 @@ const fechaStr = fecha.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
     <div class="flex gap-3">
       {enlace_verificacion && (
         <a href={enlace_verificacion} target="_blank" rel="noopener noreferrer"
-           class="text-xs text-slate-400 dark:text-white/35 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200">
+           class="text-xs text-slate-400 dark:text-white/35 hover:text-sky-600 dark:hover:text-sky-400 transition-colors duration-200">
           {t('verifycert')} →
         </a>
       )}
       {pdf && (
         <a href={pdf} download
-           class="text-xs text-slate-400 dark:text-white/35 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200">
+           class="text-xs text-slate-400 dark:text-white/35 hover:text-sky-600 dark:hover:text-sky-400 transition-colors duration-200">
           PDF ↓
         </a>
       )}

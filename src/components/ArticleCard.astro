@@ -26,7 +26,7 @@ const fechaStr = fecha.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
   )}
 
   <a href={href} class="block flex-1">
-    <h3 class="font-semibold text-slate-900 dark:text-white/90 group-hover:text-emerald-600 dark:group-hover:text-emerald-400
+    <h3 class="font-semibold text-slate-900 dark:text-white/90 group-hover:text-sky-600 dark:group-hover:text-sky-400
                transition-colors duration-200 leading-snug">
       {titulo}
     </h3>
@@ -35,7 +35,7 @@ const fechaStr = fecha.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
 
   <div class="flex flex-wrap gap-1.5">
     {tags.map(tag => (
-      <span class="text-xs px-2 py-0.5 rounded-md
+      <span class="text-xs font-mono px-2 py-0.5 rounded-md
                    bg-slate-100 dark:bg-white/[0.05]
                    text-slate-500 dark:text-white/40
                    border border-slate-200 dark:border-white/[0.07]">

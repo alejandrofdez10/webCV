@@ -34,13 +34,14 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
   </head>
   <body class="bg-slate-50 dark:bg-[#080810] text-slate-900 dark:text-white font-sans antialiased overflow-x-hidden
-               selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:bg-emerald-500/30 dark:selection:text-emerald-200
+               selection:bg-sky-500/20 selection:text-sky-700 dark:selection:bg-sky-500/30 dark:selection:text-sky-200
                transition-colors duration-300">
+    <div class="data-grid fixed inset-0 pointer-events-none" aria-hidden="true"></div>
     <Header locale={locale} />
     <main class="min-h-screen">
       <slot />
@@ -54,31 +55,54 @@ const {
   :root  { --hero-fade: #f8fafc; }
   .dark  { --hero-fade: #080810; }
 
-  /* Glass — light mode */
+  /* Faint dot-grid — data/pipeline motif, barely visible */
+  .data-grid {
+    z-index: 0;
+    background-image: radial-gradient(circle, rgba(2,6,23,0.08) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+  .dark .data-grid {
+    background-image: radial-gradient(circle, rgba(125,211,252,0.07) 1px, transparent 1px);
+  }
+
+  /* Glass — liquid-glass: layered blur + saturation + specular edge */
   .glass {
-    background: rgba(255, 255, 255, 0.65);
-    border: 1px solid rgba(0, 0, 0, 0.07);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    position: relative;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 1px 1px rgba(255,255,255,0.6) inset, 0 8px 24px rgba(2,6,23,0.05);
     transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   }
+  .glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255,255,255,0.5), transparent 40%);
+    opacity: 0.5;
+    pointer-events: none;
+  }
   .glass:hover {
-    background: rgba(255, 255, 255, 0.88);
-    border-color: rgba(5, 150, 105, 0.3);
-    box-shadow: 0 4px 20px rgba(5, 150, 105, 0.08);
+    background: rgba(255, 255, 255, 0.78);
+    border-color: rgba(2, 132, 199, 0.3);
+    box-shadow: 0 4px 20px rgba(2, 132, 199, 0.08);
   }
 
   /* Glass — dark mode */
   .dark .glass {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    box-shadow: none;
+    background: rgba(18, 24, 38, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 8px 30px rgba(0,0,0,0.45);
   }
+  .dark .glass::before { background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent 45%); }
   .dark .glass:hover {
-    background: rgba(255, 255, 255, 0.055);
-    border-color: rgba(16, 185, 129, 0.22);
-    box-shadow: 0 8px 40px rgba(16, 185, 129, 0.07), 0 0 0 1px rgba(16, 185, 129, 0.12) inset;
+    background: rgba(20, 28, 44, 0.6);
+    border-color: rgba(56, 189, 248, 0.25);
+    box-shadow: 0 8px 40px rgba(14, 165, 233, 0.1), 0 0 0 1px rgba(14, 165, 233, 0.14) inset;
   }
 
   /* Blobs — subtle in light, vivid in dark */
@@ -101,7 +125,7 @@ const {
     66%       { transform: translate(-25px, 40px) scale(0.94); }
   }
 
-  main { animation: fadein 0.4s ease both; }
+  main { animation: fadein 0.4s ease both; position: relative; z-index: 1; }
   @keyframes fadein {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -111,5 +135,5 @@ const {
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
   .dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(16,185,129,0.4); }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(14,165,233,0.4); }
 </style>
